@@ -5,15 +5,15 @@ source secret.env
 
 b=68
 poststart=1
-postend=2
+postend=5
 
 echo ${b}
 
 # ref: https://foxrow.com/til-api-for-saving-webpages-in-the-wayback-machine
 # save posts
-for ((i=${poststart} ; i<${postend} ; i++))
+for ((i=${poststart} ; i<=${postend} ; i++))
 do
-  curl -X POST -H "Accept: application/json" -H "Authorization: LOW ${IA_ACCESS_KEY}:${IA_SECRET_KEY}" -d"url=https://maple:patty@www.maple.town/bbs/${b}/${i}&capture_all=1&delay_wb_availability=1&skip_first_archive=1&wm-save-mywebarchive=1&wacz=1" "https://web.archive.org/save"
+  curl -X POST -H "Accept: application/json" -H "Authorization: LOW ${IA_ACCESS_KEY}:${IA_SECRET_KEY}" -d"url=https://maple:patty@www.maple.town/bbs/${b}/${i}&capture_all=1&skip_first_archive=1&delay_wb_availability=1&email_result=1&target_username=maple&target_password=patty" "https://web.archive.org/save"
   echo "\n"
   sleep 10
   # waybackmachineのsavenowは1minに15requestまで? sleep 6だとrate limitにかかる　もしかすると1分あたり以外にも制限があるかも
